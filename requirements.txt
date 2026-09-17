@@ -1,0 +1,13 @@
+numpy
+pandas
+scipy
+scikit-learn>=1.2
+matplotlib
+seaborn
+torch
+nltk
+nbformat
+nbclient
+ipykernel
+jupyter
+kagglehub
