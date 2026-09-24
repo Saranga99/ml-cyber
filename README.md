@@ -1,28 +1,169 @@
-# COMP70049 Assignment 1
+# Cybersecurity and Machine Learning Assignment
 
-## Status
-All eight models are implemented. Default measurements are synthetic demonstrations, not real cybersecurity results. The brief is the only attached input. Real-data evaluation remains necessary before a benchmark submission.
+## How to Run the Notebooks
 
-## Run
-Use Python 3.11+. Create a virtual environment, then run:
+The assignment contains four Jupyter notebooks:
 
-```sh
-pip install numpy pandas scipy scikit-learn matplotlib seaborn torch nltk nbformat nbclient ipykernel jupyter
-jupyter notebook COMP70049_Assignment1.ipynb
-```
+* `task_1_email_spam_detection.ipynb`
+* `task_2_network_intrusion_detection.ipynb`
+* `task_3_anomaly_detection.ipynb`
+* `task_4_ransomware_detection.ipynb`
 
-Run all cells in order. Alternatively: `python assignment.py` (figures display through your Matplotlib backend). CPU is supported. The notebook uses no downloaded pretrained model and no NLTK corpus download.
+## Running the Notebooks in Google Colab
 
-## Real data
-Create `data/` beside the notebook. Supply emails.csv, network_train.csv, network_test.csv and ransomware.csv using the exact data contracts in the notebook. Set DEMO=False. Binary label 1 means malicious. UNSW official CSVs should use their train/test split. Convert Email Text to text and map Safe Email/Phishing Email to 0/1 explicitly. API files must contain confirmed ransomware and benign samples, ordered calls and executable sample_id. Do not execute malware.
+1. Upload all `.ipynb` files to Google Drive.
 
-The program deliberately raises an error if real files are absent or invalid. It writes metrics to results/metrics.csv. Real runs use up to 25 epochs, with validation checkpointing and early stopping. Adjust resource limits before running large datasets; dense one-hot arrays and PCA can require substantial memory.
+2. Right-click the required notebook and select:
 
-## Files
-- COMP70049_Assignment1.ipynb: main code, explanations, figures, comparisons and inline written report.
-- assignment.py: equivalent executable Python code.
-- REPORT.md: methodology/report text; includes the evaluation-pending limitation.
-- README.md: these instructions.
+   **Open with → Google Colaboratory**
 
-## Submission
-Re-run on real data, review outputs, and update the report with measured findings and exported figures. Follow institutional AI-use/disclosure requirements. This package does not claim a completed empirical evaluation from unavailable datasets.
+3. In Google Colab, go to:
+
+   **Runtime → Change runtime type**
+
+4. Select **GPU** as the hardware accelerator.
+
+   GPU is recommended because the notebooks contain deep learning models such as LSTM, CNN, and Autoencoder.
+
+5. Click **Save** and wait for the runtime to connect.
+
+6. Run the notebook using:
+
+   **Runtime → Run all**
+
+   This will execute all cells from top to bottom.
+
+7. The notebook can also be executed manually by clicking the **Run** button beside each cell.
+
+   When running cell by cell, always follow the notebook order because later cells depend on variables created in previous cells.
+
+8. Wait until model training is complete before running evaluation cells.
+
+9. After execution, check the final:
+
+   * accuracy;
+   * precision;
+   * recall;
+   * F1-score;
+   * classification reports;
+   * confusion matrices;
+   * training graphs;
+   * model comparison results.
+
+10. Save the completed notebook to Google Drive or download it as an `.ipynb` file for submission.
+
+---
+
+# Task 1 – Email Spam / Phishing Detection
+
+This task detects whether an email is legitimate or spam/phishing.
+
+The **Enron Spam Dataset** is used.
+
+The main steps are:
+
+* clean and preprocess email text;
+* convert text into numerical features using TF-IDF;
+* train Logistic Regression;
+* train Random Forest;
+* tokenize and pad text sequences;
+* train an LSTM neural network;
+* evaluate the models using accuracy, precision, recall, F1-score, confusion matrix, and ROC curve.
+
+The notebook compares traditional machine learning methods with an LSTM deep learning model.
+
+---
+
+# Task 2 – Network Intrusion Detection
+
+This task detects different types of network attacks using the **NSL-KDD Dataset**.
+
+The attacks are grouped into five classes:
+
+* Normal
+* DoS
+* Probe
+* R2L
+* U2R
+
+The main steps are:
+
+* preprocess numerical and categorical network features;
+* apply one-hot encoding;
+* scale numerical features;
+* use PCA for dimensionality reduction;
+* train a Random Forest classifier;
+* train a 1D CNN deep learning model;
+* evaluate both models using accuracy, precision, recall, F1-score, confusion matrices, and ROC curves.
+
+The final results are used to compare the Random Forest and CNN models.
+
+---
+
+# Task 3 – Anomaly Detection
+
+This task detects unusual network behaviour using the **UNSW-NB15 Dataset**.
+
+The main idea is to train models using normal network traffic and identify unusual traffic as possible attacks.
+
+Two models are used:
+
+* Isolation Forest
+* Autoencoder
+
+The main steps are:
+
+* remove duplicate records;
+* preprocess network features;
+* encode categorical variables;
+* scale numerical features;
+* train Isolation Forest using normal traffic;
+* train Autoencoder using normal traffic;
+* calculate anomaly scores;
+* select anomaly thresholds;
+* classify unusual traffic as attacks;
+* compare both models using precision, recall, F1-score, false positive rate, and Precision-Recall curves.
+
+The task demonstrates how unsupervised and deep learning methods can detect abnormal network behaviour.
+
+---
+
+# Task 4 – Ransomware Detection
+
+This task detects ransomware activity using the **CIC-AndMal2017 Dataset**.
+
+The notebook performs binary classification between:
+
+* Benign
+* Ransomware
+
+The main steps are:
+
+* load and filter the dataset;
+* create additional behavioural features;
+* separate training and testing data;
+* remove constant features;
+* remove highly correlated features;
+* standardize numerical features;
+* create sequences of network flows;
+* train a Linear SVM;
+* train an LSTM model;
+* evaluate both models using accuracy, precision, recall, F1-score, confusion matrices, and training curves.
+
+The final comparison shows how traditional machine learning and deep learning perform for ransomware detection.
+
+---
+
+# General Notes
+
+All notebooks should be executed from the first cell to the last cell.
+
+Do not skip preprocessing cells because the model-training and evaluation sections depend on them.
+
+A GPU runtime is recommended for the deep learning models.
+
+If the Colab runtime disconnects, reconnect and run the notebook again from the beginning.
+
+Some results may change slightly between runs because deep learning models can be affected by random initialization and GPU operations.
+
+Always save the final notebook after all outputs, plots, and evaluation results have been generated.
